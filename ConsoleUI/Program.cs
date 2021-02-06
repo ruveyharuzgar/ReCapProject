@@ -1,5 +1,7 @@
 ﻿using Business.Concrete;
 using DataAccess.Concrete;
+using DataAccess.Concrete.EntityFramework;
+using Entities.Concrete;
 using System;
 
 namespace ConsoleUI
@@ -9,29 +11,27 @@ namespace ConsoleUI
         static void Main(string[] args)
         {
             Console.WriteLine("Araba Kiralama Sistemine Hoşgeldiniz... \nSorularınızı yanıtlayalım");
-            CarManager carManager = new CarManager(new InMemoryCarDal());
-            ColorsManager colorsManager = new ColorsManager(new InMemoryColorsDal());
-            BrandManager brandManager = new BrandManager(new InMemoryBrandDal());
+            CarManager carManager = new CarManager(new EfCarDal());
+            ColorManager colorManager = new ColorManager(new EfColorDal());
+            BrandManager brandManager = new BrandManager(new EfBrandDal());
 
-            Console.WriteLine("Kaç Model? Günlük Ücreti Nedir? ");
-            foreach (var cars in carManager.GetAll())
-            {
-                Console.WriteLine(cars.ModelYear+" Model ,"+cars.DailyPrice+" TL,"+cars.Description);
-                Console.ReadLine();
-            }
-            Console.WriteLine("Hangi Renkler Var? ");
-            foreach (var colors in colorsManager.GetAll())
-            {
-                Console.WriteLine(colors.ColorName);
-                Console.ReadLine();
-            }
-            Console.WriteLine("Hangi Markalar Var? ");
-            foreach (var brand in brandManager.GetAll())
+
+            //brandManager.Add(new Brand { BrandName = "a" });
+            //colorManager.Add(new Color { ColorName = "b" });
+            brandManager.Add(new Brand { BrandName = "Mercedes-Benz" });
+            colorManager.Add(new Color { ColorName = "Kırmızı" });
+            carManager.Add(new Car { BrandId = 1, ColorId = 2, DailyPrice = 500, ModelYear = 2016, Description = "Otomatik" });
+
+            foreach (var brand in brandManager.GetCarsByBrandId(1))
             {
                 Console.WriteLine(brand.BrandName);
                 Console.ReadLine();
             }
-
+            foreach (var color in colorManager.GetCarsByColorsId(1))
+            {
+                Console.WriteLine(color.ColorName);
+                Console.ReadLine();
+            }
         }
     }
 }
