@@ -7,3 +7,6 @@ C:\Users\RuveyhaRuzgar\source\repos\ReCapProject\Entities\obj\Debug\netstandard2
 C:\Users\RuveyhaRuzgar\source\repos\ReCapProject\Entities\obj\Debug\netstandard2.0\Entities.AssemblyInfo.cs
 C:\Users\RuveyhaRuzgar\source\repos\ReCapProject\Entities\obj\Debug\netstandard2.0\Entities.dll
 C:\Users\RuveyhaRuzgar\source\repos\ReCapProject\Entities\obj\Debug\netstandard2.0\Entities.pdb
+C:\Users\RuveyhaRuzgar\source\repos\ReCapProject\Entities\bin\Debug\netstandard2.0\Core.dll
+C:\Users\RuveyhaRuzgar\source\repos\ReCapProject\Entities\bin\Debug\netstandard2.0\Core.pdb
+C:\Users\RuveyhaRuzgar\source\repos\ReCapProject\Entities\obj\Debug\netstandard2.0\Entities.csproj.CopyComplete

@@ -8,6 +8,8 @@
 	FOREIGN KEY (ColorId) REFERENCES Colors(ColorId),
 	FOREIGN KEY (BrandId) REFERENCES Brands(BrandId)
 )
+ALTER TABLE Cars ADD ModelName nvarchar(25)
+
 CREATE TABLE Brands(
 	BrandId int PRIMARY KEY IDENTITY(1,1),
 	BrandName nvarchar(25),
