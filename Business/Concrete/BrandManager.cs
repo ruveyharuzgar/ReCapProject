@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Business.Constants;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
@@ -15,42 +17,36 @@ namespace Business.Concrete
             _brandDal = brandDal;
         }
 
-        public void Add(Brand brand)
+        public IResult Add(Brand brand)
         {
             if (brand.BrandName.Length>2)
             {
                 _brandDal.Add(brand);
-                Console.WriteLine("Marka bilgisi eklendi.");
-                Console.ReadLine();
+                return new SuccessResult(Messages.BrandAdded);
             }
-            else
-            {
-                Console.WriteLine("Marka bilgisi 2 karakterden az olamaz.İşleminiz gerçekleştirilemedi. ");
-                Console.ReadLine();
-            }
+                return new ErrorResult(Messages.BrandNameInValid);
+
         }
 
-        public void Delete(Brand brand)
+        public IResult Delete(Brand brand)
         {
             _brandDal.Delete(brand);
-            Console.WriteLine("Marka bilgisi silindi. ");
-            Console.ReadLine();
+            return new SuccessResult(Messages.BrandDeleted);
         }
 
-        public List<Brand> GetAll()
+        public IDataResult<List<Brand>> GetAll()
         {
-            return _brandDal.GetAll();
+            return new SuccessDataResult<List<Brand>>(_brandDal.GetAll(),Messages.BrandListed);
         }
 
-        public void Update(Brand brand)
+        public IResult Update(Brand brand)
         {
             _brandDal.Update(brand);
-            Console.WriteLine("Marka bilgisi güncellendi. ");
-            Console.ReadLine();
+            return new SuccessResult(Messages.BrandUpdated);
         }
-        public List<Brand> GetCarsByBrandId(int id)
+        public IDataResult<List<Brand>> GetCarsByBrandId(int id)
         {
-            return _brandDal.GetAll(p => p.BrandId == id);
+            return new SuccessDataResult<List<Brand>>(_brandDal.GetAll(p => p.BrandId == id),Messages.BrandIdListed);
         }
 
     }

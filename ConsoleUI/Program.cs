@@ -24,11 +24,20 @@ namespace ConsoleUI
         {
             CarManager carManager = new CarManager(new EfCarDal());
             Console.WriteLine("  MARKA  -   MODEL - YIL -  RENK - GÜNLÜK ÜCRET ");
-            foreach (var c in carManager.GetCarDetails())
+            var result = carManager.GetCarDetails();
+
+            if (result.Succes==true)
             {
-                Console.Write(c.BrandName +"   "+c.ModelName+"   "+ c.ModelYear+"   " +c.ColorName+"   "+c.DailyPrice);
-                Console.WriteLine();
-                Console.ReadLine();
+                foreach (var car in result.Data)
+                {
+                    Console.WriteLine(car.ModelName+ " Günlük Ücreti: "+car.DailyPrice);
+                    Console.ReadKey();
+                }
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
+                Console.ReadKey();
             }
         }
 
@@ -38,21 +47,42 @@ namespace ConsoleUI
         {
             ColorManager colorManager = new ColorManager(new EfColorDal());
 
-            foreach (var color in colorManager.GetCarsByColorsId(1))
+            var result = colorManager.GetCarsByColorsId(1);
+
+            if (result.Succes == true)
             {
-                Console.WriteLine(color.ColorName);
-                Console.ReadLine();
+                foreach (var color in result.Data)
+                {
+                    Console.WriteLine(color.ColorName);
+                    Console.ReadKey();
+                }
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
+                Console.ReadKey();
             }
         }
 
         private static void BrandTest()
         {
             BrandManager brandManager = new BrandManager(new EfBrandDal());
-            foreach (var brand in brandManager.GetCarsByBrandId(1))
+            var result = brandManager.GetCarsByBrandId(1);
+
+            if (result.Succes == true)
             {
-                Console.WriteLine(brand.BrandName);
-                Console.ReadLine();
+                foreach (var brand in result.Data)
+                {
+                    Console.WriteLine(brand.BrandName);
+                    Console.ReadKey();
+                }
             }
+            else
+            {
+                Console.WriteLine(result.Message);
+                Console.ReadKey();
+            }
+
         }
     }
 }

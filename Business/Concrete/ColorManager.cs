@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Business.Constants;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
@@ -15,43 +17,36 @@ namespace Business.Concrete
             _colorDal = colorDal;
         }
 
-        public void Add(Color color)
+        public IResult Add(Color color)
         {
             if (color.ColorName.Length>3)
             {
                 _colorDal.Add(color);
-                Console.WriteLine("Renk bilgisi eklendi. ");
-                Console.ReadLine();
+                return new SuccessResult(Messages.ColorAdded);
             }
-            else
-            {
-                Console.WriteLine("Renk bilgisi 3 karakterden kısa olamaz.İşleminiz gerçekleştirilemedi. ");
-                Console.ReadLine();
-            }
+            return new ErrorResult(Messages.ColorNameInValid);
         }
 
-        public void Delete(Color color)
+        public IResult Delete(Color color)
         {
             _colorDal.Delete(color);
-            Console.WriteLine("Renk bilgisi silindi. ");
-            Console.ReadLine();
+            return new SuccessResult(Messages.ColorDeleted);
         }
 
-        public List<Color> GetAll()
+        public IDataResult<List<Color>> GetAll()
         {
-            return _colorDal.GetAll();
+            return new SuccessDataResult<List<Color>>(_colorDal.GetAll(),Messages.ColorListed);
        }
 
-        public void Update(Color color)
+        public IResult Update(Color color)
         {
             _colorDal.Update(color);
-            Console.WriteLine("Renk bilgisi güncellendi. ");
-            Console.ReadLine();
+            return new SuccessResult(Messages.ColorUpdated);
         }
 
-        public List<Color> GetCarsByColorsId(int id)
+        public IDataResult<List<Color>> GetCarsByColorsId(int id)
         {
-            return _colorDal.GetAll(p => p.ColorId == id);
+            return new SuccessDataResult<List<Color>>(_colorDal.GetAll(p => p.ColorId == id),Messages.ColorIdListed);
         }
     }
 }
