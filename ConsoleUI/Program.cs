@@ -16,8 +16,112 @@ namespace ConsoleUI
 
             //ColorTest();
 
-            CarTest();
+            //CarTest();
 
+            //UserTest();
+
+            //UserAdded();
+
+            //CustomerAdded();
+
+            //RentalAdded();
+
+        }
+
+        private static void RentalAdded()
+        {
+            DateTime RentDate = new DateTime(2021, 1, 2);
+            DateTime ReturnDate = new DateTime(2021, 2, 2);
+
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+            var result = rentalManager.Add(
+                new Rental
+                {
+
+                    CarId = 2,
+                    CustomerId = 1,
+                    RentDate = RentDate,
+                    ReturnDate = ReturnDate
+
+                });
+            if (result.Succes == true)
+            {
+                Console.WriteLine(result.Message);
+                Console.ReadLine();
+
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
+                Console.ReadLine();
+            }
+        }
+
+        private static void CustomerAdded()
+        {
+            CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
+            var result = customerManager.Add(
+                new Customer{
+
+                UserId = 2,
+                CompanyName = "Öğrenci"
+
+            });
+            if (result.Succes == true)
+            {
+                Console.WriteLine(result.Message);
+                Console.ReadLine();
+
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
+                Console.ReadLine();
+            }
+        }
+
+        private static void UserAdded()
+        {
+            UserManager user = new UserManager(new EfUserDal());
+            var result = user.Add(new User
+            {
+                FirstName = "Oğulcan",
+                LastName = "Rüzgar",
+                Email = "ogulcan@gmail.com",
+                Password = "123456"
+            });
+
+            if (result.Succes == true)
+            {
+                Console.WriteLine(result.Message);
+                Console.ReadLine();
+
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
+                Console.ReadLine();
+            }
+        }
+
+        private static void UserTest()
+        {
+            UserManager user = new UserManager(new EfUserDal());
+            var result = user.GetAll();
+
+            if (result.Succes == true)
+            {
+                foreach (var item in result.Data)
+                {
+                    Console.WriteLine(item.FirstName + " " + item.LastName + " " + item.Email);
+                    Console.ReadLine();
+                }
+
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
         }
 
         private static void CarTest()
