@@ -38,7 +38,7 @@ namespace Business.Concrete
         public IResult Update(Customer customer)
         {
             _customerDal.Update(customer);
-            return new SuccessResult(Messages.RentalUpdated);
+            return new SuccessResult(Messages.CustomerUpdated);
         }
     }
 }

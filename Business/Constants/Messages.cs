@@ -36,16 +36,20 @@ namespace Business.Constants
         public static string BrandNameInValid = "Marka bilgisi en az 3 karakter olmalı.";
         public static string RentalReturnDateInValid = "Araba henüz teslim edilmedi.";
 
+        public static string RentalAdded = "Kira bilgisi eklendi";
         public static string RentalDeleted="Kira bilgisi silindi";
         public static string RentalUpdated="Kira bilgisi güncellendi";
         public static string RentalListed="Kira bilgileri listelendi";
 
         public static string CustomerAdded="Müşteri eklendi";
         public static string CustomerDeleted="Müşteri silindi";
+        public static string CustomerUpdated = "Müşteri güncellendi";
         public static string CustomerListed="Müşteriler listelendi";
 
         public static string UserUpdated="Kullanıcı güncellendi";
         public static string UserListed="Kullanıcılar listelendi";
         public static string UserAdded="Kullanıcı eklendi";
+        public static string UserDeleted = "Kullanıcı silindi";
+
     }
 }
