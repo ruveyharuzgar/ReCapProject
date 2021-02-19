@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "pIXnbLYqU2tlGK8iSFcFkSLQ2RtrNTseigYLeKp0o7IjbP6SifyjJyhGHakn6fy8uO46740BRglW/c+bCahKfw==",
+  "dgSpecHash": "3EfWyEcikkL2/W9kdBP45D7b3xkS15kX6zecYrCENjnh3v93JtVyFfjqMoHC9qIkPpyxeGcpeow+1RAz3U8/uA==",
   "success": true,
   "projectFilePath": "C:\\Users\\RuveyhaRuzgar\\source\\repos\\ReCapProject\\Business\\Business.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\RuveyhaRuzgar\\.nuget\\packages\\autofac\\6.1.0\\autofac.6.1.0.nupkg.sha512",
+    "C:\\Users\\RuveyhaRuzgar\\.nuget\\packages\\autofac.extensions.dependencyinjection\\7.1.0\\autofac.extensions.dependencyinjection.7.1.0.nupkg.sha512",
     "C:\\Users\\RuveyhaRuzgar\\.nuget\\packages\\autofac.extras.dynamicproxy\\6.0.0\\autofac.extras.dynamicproxy.6.0.0.nupkg.sha512",
     "C:\\Users\\RuveyhaRuzgar\\.nuget\\packages\\castle.core\\4.4.0\\castle.core.4.4.0.nupkg.sha512",
     "C:\\Users\\RuveyhaRuzgar\\.nuget\\packages\\fluentvalidation\\9.5.1\\fluentvalidation.9.5.1.nupkg.sha512",
