@@ -1,5 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.CrossCuttingConcerns.Validation.FluentValidation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -19,11 +21,10 @@ namespace Business.Concrete
 
         public IResult Add(Color color)
         {
-            if (color.ColorName.Length>3)
-            {
-                _colorDal.Add(color);
-                return new SuccessResult(Messages.ColorAdded);
-            }
+            ValidationTool.Validate(new ColorValidator(),color);
+            _colorDal.Add(color);
+            return new SuccessResult(Messages.ColorAdded);
+
             return new ErrorResult(Messages.ColorNameInValid);
         }
 
