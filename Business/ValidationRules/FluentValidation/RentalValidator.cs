@@ -11,12 +11,7 @@ namespace Business.ValidationRules.FluentValidation
         public RentalValidator()
         {
             RuleFor(r => r.RentDate).NotEmpty();
-            RuleFor(r => r.ReturnDate).Must(ReturnDateValue).WithMessage("Araba Teslim Edilmemiş.");
-        }
-
-        private bool ReturnDateValue(DateTime? arg)
-        {
-            return arg.HasValue;
+            RuleFor(r => r.ReturnDate).NotEmpty().WithMessage("Araba Teslim Edilmemiş.");
         }
     }
 }

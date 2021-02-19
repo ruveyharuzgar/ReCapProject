@@ -22,8 +22,6 @@ namespace Business.Concrete
         public IResult Add(Rental rental)
         {
             ValidationTool.Validate(new RentalValidator(), rental);
-            return new ErrorResult(Messages.RentalReturnDateInValid);
-            
             _rentalDal.Add(rental);
             return new SuccessResult(Messages.RentalAdded);
         }
