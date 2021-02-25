@@ -42,7 +42,12 @@ CREATE TABLE Rentals(
 	FOREIGN KEY (CarId) REFERENCES Cars(Id),
 	FOREIGN KEY (CustomerId) REFERENCES Customers(Id)
 )
-
-
+CREATE TABLE CarImages(
+	Id int PRIMARY KEY IDENTITY(1,1),
+	CarId int,
+	ImagePath nvarchar(MAX),
+	Date datetime,
+	FOREIGN KEY (CarId) REFERENCES Cars(Id),
+)
 
 
