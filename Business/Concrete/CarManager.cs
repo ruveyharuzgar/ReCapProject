@@ -27,7 +27,7 @@ namespace Business.Concrete
             _carDal.Add(car);
             return new SuccessResult(Messages.CarAdded);
 
-            return new ErrorResult(Messages.CarDailyPriceInValid);
+            //return new ErrorResult(Messages.CarDailyPriceInValid);
         }
 
         public IResult Delete(Car car)

@@ -27,7 +27,7 @@ namespace Business.Concrete
             _brandDal.Add(brand);
             return new SuccessResult(Messages.BrandAdded);
 
-            return new ErrorResult(Messages.BrandNameInValid);
+            //return new ErrorResult(Messages.BrandNameInValid);
 
         }
 

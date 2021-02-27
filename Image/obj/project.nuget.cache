@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "ieQ9rWiLj0/x3+LUoztuD3JIyLEGzrlqkvvoFvHvBc/84etgAzH23PbySuD39oXDVDbAgeTsNSeEqPWzpaieJg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\RuveyhaRuzgar\\source\\repos\\ReCapProject\\Image\\Image.csproj",
+  "expectedPackageFiles": [
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}

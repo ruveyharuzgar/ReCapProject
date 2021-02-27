@@ -26,7 +26,7 @@ namespace Business.Concrete
             _colorDal.Add(color);
             return new SuccessResult(Messages.ColorAdded);
 
-            return new ErrorResult(Messages.ColorNameInValid);
+            //return new ErrorResult(Messages.ColorNameInValid);
         }
 
         public IResult Delete(Color color)

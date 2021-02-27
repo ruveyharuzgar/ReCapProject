@@ -51,5 +51,6 @@ namespace Business.Constants
         public static string UserAdded="Kullanıcı eklendi";
         public static string UserDeleted = "Kullanıcı silindi";
 
+        public static string FailAddedImageLimit="En fazla 5 resim yüklenebilir";
     }
 }
