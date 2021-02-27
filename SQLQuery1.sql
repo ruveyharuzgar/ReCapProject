@@ -43,6 +43,3 @@ CREATE TABLE Rentals(
 	FOREIGN KEY (CustomerId) REFERENCES Customers(Id)
 )
 
-
-
-
