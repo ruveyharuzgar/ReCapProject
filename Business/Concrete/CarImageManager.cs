@@ -51,9 +51,9 @@ namespace Business.Concrete
             return new SuccessResult();
         }
 
-        public IDataResult<CarImage> Get(int id)
+        public IDataResult<CarImage> Get(int Id)
         {
-            return new SuccessDataResult<CarImage>(_carImageDal.Get(p => p.Id == id));
+            return new SuccessDataResult<CarImage>(_carImageDal.Get(c => c.Id == Id));
         }
 
         public IDataResult<List<CarImage>> GetAll()
@@ -76,7 +76,7 @@ namespace Business.Concrete
         [ValidationAspect(typeof(CarImageValidator))]
         public IResult Update(IFormFile file, CarImage carImage)
         {
-            carImage.ImagePath = FileHelper.Update(_carImageDal.Get(p => p.Id == carImage.Id).ImagePath, file);
+            carImage.ImagePath = FileHelper.Update(_carImageDal.Get(c => c.Id == carImage.Id).ImagePath, file);
             carImage.Date = DateTime.Now;
             _carImageDal.Update(carImage);
             return new SuccessResult();
@@ -85,7 +85,8 @@ namespace Business.Concrete
         {
             try
             {
-                File.Delete(carImage.ImagePath);
+                var result = carImage.ImagePath;
+                File.Delete(result);
             }
             catch (Exception exception)
             {
@@ -99,7 +100,7 @@ namespace Business.Concrete
         {
             try
             {
-                string path = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).FullName + @"\Images\carImages\default.jpg");
+                string path = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).FullName + @"\wwwroot\Images\default.jpg");
                 var result = _carImageDal.GetAll(c => c.CarId == id).Any();
                 if (!result)
                 {
@@ -114,12 +115,12 @@ namespace Business.Concrete
                 return new ErrorDataResult<List<CarImage>>(exception.Message);
             }
 
-            return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll(p => p.CarId == id).ToList());
+            return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll(c => c.CarId == id).ToList());
         }
 
         private IResult CheckIfImageLimitEx(int carId)
         {
-            var carImagecount = _carImageDal.GetAll(p => p.CarId == carId).Count;
+            var carImagecount = _carImageDal.GetAll(c => c.CarId == carId).Count;
             if (carImagecount >= 5)
             {
                 return new ErrorResult(Messages.FailAddedImageLimit);
