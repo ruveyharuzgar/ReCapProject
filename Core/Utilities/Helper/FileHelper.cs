@@ -1,17 +1,14 @@
-﻿using Core.Entities;
-using Core.Utilities.Results;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Core.Utilities.Helper
 {
     public class FileHelper
     {
-        
+
         public static string Add(IFormFile file)
         {
             var ImagePath = Path.GetTempFileName();
@@ -22,7 +19,7 @@ namespace Core.Utilities.Helper
                     file.CopyTo(stream);
                 }
             }
-            var result = newPath(file);
+            var result = NewPath(file);
             File.Move(ImagePath, result);
             return result;
         }
@@ -32,7 +29,7 @@ namespace Core.Utilities.Helper
         }
         public static string Update(string ImagePath, IFormFile file)
         {
-            var result = newPath(file);
+            var result = NewPath(file);
             if (ImagePath.Length > 0)
             {
                 using (var stream = new FileStream(result, FileMode.Create))
@@ -43,7 +40,7 @@ namespace Core.Utilities.Helper
             File.Delete(ImagePath);
             return result;
         }
-        public static string newPath(IFormFile file)
+        public static string NewPath(IFormFile file)
         {
             FileInfo fileInfo = new FileInfo(file.FileName);
             string fileExtension = fileInfo.Extension;
