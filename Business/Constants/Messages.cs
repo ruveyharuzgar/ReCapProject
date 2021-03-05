@@ -63,5 +63,7 @@ namespace Business.Constants
         public static string CarImageUpdated="Araba resmi güncellendi";
         public static string CarImageDeleted="Araba resmi silindi";
         public static string CarImageAdded="Araba resmi yüklendi";
+
+        public static string FalseEmailFormat="E-mail xxx@xxx.com formatında olmalıdır.";
     }
 }

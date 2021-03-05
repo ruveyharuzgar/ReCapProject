@@ -1,4 +1,5 @@
-﻿using Core.Entities.Concrete;
+﻿using Business.Constants;
+using Core.Entities.Concrete;
 using Entities.Concrete;
 using FluentValidation;
 using System;
@@ -14,7 +15,13 @@ namespace Business.ValidationRules.FluentValidation
             RuleFor(u => u.FirstName).NotEmpty();
             RuleFor(u => u.LastName).NotEmpty();
             RuleFor(u => u.Email).NotEmpty();
+            RuleFor(u => u.Email).Must(EmailFormat).WithMessage(Messages.FalseEmailFormat);
             //RuleFor(u => u.Password).NotEmpty();
+        }
+
+        private bool EmailFormat(string arg)
+        {
+            return arg.Contains("@");
         }
     }
 }
