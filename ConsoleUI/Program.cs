@@ -152,7 +152,7 @@ namespace ConsoleUI
         {
             ColorManager colorManager = new ColorManager(new EfColorDal());
 
-            var result = colorManager.GetCarsByColorsId(1);
+            var result = colorManager.GetCarsByColorId(1);
 
             if (result.Succes == true)
             {

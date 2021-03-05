@@ -8,7 +8,6 @@ namespace Core.Utilities.Helper
 {
     public class FileHelper
     {
-
         public static string Add(IFormFile file)
         {
             var ImagePath = Path.GetTempFileName();

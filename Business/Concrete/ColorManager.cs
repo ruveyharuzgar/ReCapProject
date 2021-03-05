@@ -1,6 +1,9 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspect.Autofac;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Caching;
+using Core.Aspects.Autofac.Transaction;
 using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation.FluentValidation;
 using Core.Utilities.Results;
@@ -20,7 +23,10 @@ namespace Business.Concrete
             _colorDal = colorDal;
         }
 
+        [SecuredOperation("admin,product.admin")]
         [ValidationAspect(typeof(ColorValidator))]
+        [CacheRemoveAspect("IColorService.Get")]
+
         public IResult Add(Color color)
         {
             _colorDal.Add(color);
@@ -29,6 +35,7 @@ namespace Business.Concrete
             //return new ErrorResult(Messages.ColorNameInValid);
         }
 
+        [SecuredOperation("admin,product.admin")]
         public IResult Delete(Color color)
         {
             _colorDal.Delete(color);
@@ -38,17 +45,28 @@ namespace Business.Concrete
         public IDataResult<List<Color>> GetAll()
         {
             return new SuccessDataResult<List<Color>>(_colorDal.GetAll(),Messages.ColorListed);
-       }
+        }
 
+        [SecuredOperation("admin,product.admin")]
+        [CacheRemoveAspect("IColorService.Get")]
         public IResult Update(Color color)
         {
             _colorDal.Update(color);
             return new SuccessResult(Messages.ColorUpdated);
         }
 
-        public IDataResult<List<Color>> GetCarsByColorsId(int id)
+        [CacheAspect]
+        public IDataResult<List<Color>> GetCarsByColorId(int id)
         {
             return new SuccessDataResult<List<Color>>(_colorDal.GetAll(p => p.ColorId == id),Messages.ColorIdListed);
+        }
+
+        [TransactionScopeAspect]
+        public IResult TransactionalOperation(Color color)
+        {
+            _colorDal.Update(color);
+            _colorDal.Add(color);
+            return new SuccessResult(Messages.ColorUpdated);
         }
     }
 }

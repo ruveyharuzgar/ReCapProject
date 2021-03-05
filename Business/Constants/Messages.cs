@@ -6,11 +6,8 @@ using System.Text;
 
 namespace Business.Constants
 {
-    //sabit mesajları yani Class+Method tipinde çalışmak istediğim için, 'static' anahtar sözcüğünü kullanıyorum
     public static class Messages
     {
-        //static classın static prop'ları olur.Db ile ilişkili her bir veri 
-        //için ayrı bir mesaj çıktısı oluşturuyorum.Anlaşılırlık açısından;
         public static string CarAdded = "Araba eklendi ";
         public static string BrandAdded = "Marka eklendi ";
         public static string ColorAdded = "Renk eklendi ";
@@ -27,9 +24,9 @@ namespace Business.Constants
         public static string BrandListed = "Markalar listelendi";
         public static string ColorListed = "Renkler listelendi";
 
-        public static string CarIdListed = "Araba Id leri listelendi";
-        public static string BrandIdListed = "Marka Id leri listelendi";
-        public static string ColorIdListed = "Renk Id leri listelendi";
+        public static string CarIdListed = "Araba Id'leri listelendi";
+        public static string BrandIdListed = "Marka Id'leri listelendi";
+        public static string ColorIdListed = "Renk Id'leri listelendi";
 
         public static string CarDetailsListed = "Araba ayrıntıları listelendi ";
 
@@ -62,5 +59,9 @@ namespace Business.Constants
         public static string PasswordError="Parola hatalı";
         public static string AccessTokenCreated="Token oluşturuldu";
         public static string UserAlreadyExists="Kullanıcı zaten mevcut";
+
+        public static string CarImageUpdated="Araba resmi güncellendi";
+        public static string CarImageDeleted="Araba resmi silindi";
+        public static string CarImageAdded="Araba resmi yüklendi";
     }
 }

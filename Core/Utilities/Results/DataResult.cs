@@ -6,8 +6,6 @@ namespace Core.Utilities.Results
 {
     public class DataResult<T> : Result, IDataResult<T>
     {
-        //Base alacağım bir data bilgisi yok, o yüzden her iki constructorda da data'yı set ediyorum.
-        //Bu class bana datayı verecek yer,mecbur set etmek zorundayım.
         public DataResult(T data,bool success) : base(success)
         {
             Data = data;
@@ -17,6 +15,6 @@ namespace Core.Utilities.Results
         {
             Data = data;
         }
-        public T Data { get; } //IDataResult'u implemente ettiğimiz için geldi,orda artık bizim bir datamız olacağını belirtmiştik.
+        public T Data { get; } 
     }
 }

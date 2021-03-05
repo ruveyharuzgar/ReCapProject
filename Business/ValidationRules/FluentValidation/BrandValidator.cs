@@ -8,7 +8,6 @@ namespace Business.ValidationRules.FluentValidation
 {
     public class BrandValidator:AbstractValidator<Brand>
     {
-        //methodlarda ki ilgili nesnelerin yapısı için kurallarımızı burada oluşturuyoruz.
         public BrandValidator()
         {
             RuleFor(b => b.BrandName).NotEmpty();

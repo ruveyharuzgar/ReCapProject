@@ -1,6 +1,10 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspect.Autofac;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Caching;
+using Core.Aspects.Autofac.Performance;
+using Core.Aspects.Autofac.Transaction;
 using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Business;
 using Core.Utilities.Helper;
@@ -25,7 +29,9 @@ namespace Business.Concrete
             _carImageDal = carImageDal;
         }
 
+        [SecuredOperation("admin,product.admin")]
         [ValidationAspect(typeof(CarImageValidator))]
+        [CacheRemoveAspect("ICarImageService.Get")]
         public IResult Add(IFormFile file, CarImage carImage)
         {
             IResult result = BusinessRules.Run(CheckIfImageLimitEx(carImage.CarId));
@@ -36,9 +42,10 @@ namespace Business.Concrete
             carImage.ImagePath = FileHelper.Add(file);
             carImage.Date = DateTime.Now;
             _carImageDal.Add(carImage);
-            return new SuccessResult();
+            return new SuccessResult(Messages.CarImageAdded);
         }
 
+        [SecuredOperation("admin,product.admin")]
         [ValidationAspect(typeof(CarImageValidator))]
         public IResult Delete(CarImage carImage)
         {
@@ -48,9 +55,10 @@ namespace Business.Concrete
                 return result;
             }
             _carImageDal.Delete(carImage);
-            return new SuccessResult();
+            return new SuccessResult(Messages.CarImageDeleted);
         }
 
+        [PerformanceAspect(5)]
         public IDataResult<CarImage> Get(int Id)
         {
             return new SuccessDataResult<CarImage>(_carImageDal.Get(c => c.Id == Id));
@@ -61,6 +69,8 @@ namespace Business.Concrete
             return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll());
         }
 
+        [PerformanceAspect(5)]
+        [CacheAspect(duration: 10)]
         public IDataResult<List<CarImage>> GetImagesByCarId(int id)
         {
             IResult result = BusinessRules.Run(CheckIfCarImageNull(id));
@@ -73,13 +83,23 @@ namespace Business.Concrete
             return new SuccessDataResult<List<CarImage>>(CheckIfCarImageNull(id).Data);
         }
 
+        [TransactionScopeAspect]
+        public IResult TransactionalOperation(CarImage carImage)
+        {
+            _carImageDal.Update(carImage);
+            _carImageDal.Add(carImage);
+            return new SuccessResult(Messages.CarImageUpdated);
+        }
+
+        [SecuredOperation("admin,product.admin")]
         [ValidationAspect(typeof(CarImageValidator))]
+        [CacheRemoveAspect("ICarImageService.Get")]
         public IResult Update(IFormFile file, CarImage carImage)
         {
             carImage.ImagePath = FileHelper.Update(_carImageDal.Get(c => c.Id == carImage.Id).ImagePath, file);
             carImage.Date = DateTime.Now;
             _carImageDal.Update(carImage);
-            return new SuccessResult();
+            return new SuccessResult(Messages.CarImageUpdated);
         }
         private IResult CarImageDelete(CarImage carImage)
         {
@@ -105,16 +125,16 @@ namespace Business.Concrete
                 if (!result)
                 {
                     List<CarImage> carImage = new List<CarImage>();
-                    carImage.Add(new CarImage { CarId = id, ImagePath = path, Date = DateTime.Now });
+                    carImage.Add(new CarImage {
+                        CarId = id, ImagePath = path, Date = DateTime.Now 
+                    });
                     return new SuccessDataResult<List<CarImage>>(carImage);
                 }
             }
             catch (Exception exception)
             {
-
                 return new ErrorDataResult<List<CarImage>>(exception.Message);
             }
-
             return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll(c => c.CarId == id).ToList());
         }
 

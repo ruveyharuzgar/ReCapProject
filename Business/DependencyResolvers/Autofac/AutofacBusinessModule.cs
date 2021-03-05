@@ -16,10 +16,6 @@ namespace Business.DependencyResolvers.Autofac
 {
     public class AutofacBusinessModule:Module 
     {
-        //startup'da ki injection işlemlerini genele taşıyarak burda yapıyoruz.
-        //attributeler ile anlamlaştırdığımız methodların kontrol sonucu methoddan önce varsa attributelerini çalıştırsın diye aspect classı ile bağımlılığı burda yapıyoruz.
-        //Projeyi ayağa kaldırdığımızda bu Load çalışır;
-
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<BrandManager>().As<IBrandService>().SingleInstance();
@@ -45,8 +41,6 @@ namespace Business.DependencyResolvers.Autofac
 
             builder.RegisterType<AuthManager>().As<IAuthService>();
             builder.RegisterType<JwtHelper>().As<ITokenHelper>();
-
-            builder.RegisterType<HttpContextAccessor>().As<IHttpContextAccessor>();
 
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();
 

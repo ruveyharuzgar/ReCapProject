@@ -1,6 +1,10 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspect.Autofac;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Caching;
+using Core.Aspects.Autofac.Performance;
+using Core.Aspects.Autofac.Transaction;
 using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation.FluentValidation;
 using Core.Entities.Concrete;
@@ -21,7 +25,9 @@ namespace Business.Concrete
             _userDal = userDal;
         }
 
+        [SecuredOperation("admin,boss,user")]
         [ValidationAspect(typeof(UserValidator))]
+        [CacheRemoveAspect("IUserService.Get")]
         public IResult Add(User user)
         {
             _userDal.Add(user);
@@ -29,15 +35,16 @@ namespace Business.Concrete
             return new SuccessResult(Messages.UserAdded);
         }
 
+        [SecuredOperation("admin,boss")]
         public IResult Delete(User user)
         {
             _userDal.Delete(user);
             return new SuccessResult(Messages.UserDeleted);
         }
 
+        [PerformanceAspect(5)]
         public IDataResult<List<User>> GetAll()
         {
-            //iş kodları eklenir
             return new SuccessDataResult<List<User>>(_userDal.GetAll(), Messages.UserListed);
         }
 
@@ -51,6 +58,16 @@ namespace Business.Concrete
             return new SuccessDataResult<List<OperationClaim>>(_userDal.GetClaims(user));
         }
 
+        [TransactionScopeAspect]
+        public IResult TransactionalOperation(User user)
+        {
+            _userDal.Update(user);
+            _userDal.Add(user);
+            return new SuccessResult(Messages.UserUpdated);
+        }
+
+        [SecuredOperation("admin,boss")]
+        [CacheRemoveAspect("IUserService.Get")]
         public IResult Update(User user)
         {
             _userDal.Update(user);

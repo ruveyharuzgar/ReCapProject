@@ -7,7 +7,6 @@ using System.Text;
 
 namespace Core.Utilities.Interceptors
 {
-    //Attributeleri bul,oku,listele, base attribute de tanımlı olan öncelik vardı; önceliğer göre sırasına koy
     public class AspectInterceptorSelector : IInterceptorSelector
     {
         public IInterceptor[] SelectInterceptors(Type type, MethodInfo method, IInterceptor[] interceptors)

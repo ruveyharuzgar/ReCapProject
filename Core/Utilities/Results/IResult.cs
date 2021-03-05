@@ -8,7 +8,5 @@ namespace Core.Utilities.Results
     {
         bool Succes { get; }
         string Message { get; }
-
-        //Sonuçları clean code ile return et
     }
 }
