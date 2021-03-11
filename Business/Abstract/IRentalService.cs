@@ -13,5 +13,6 @@ namespace Business.Abstract
         IResult Update(Rental rental);
         IDataResult<List<Rental>> GetAll();
         IResult TransactionalOperation(Rental rental);
+
     }
 }
