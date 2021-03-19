@@ -59,9 +59,9 @@ namespace Business.Concrete
         }
 
         [PerformanceAspect(5)]
-        public IDataResult<CarImage> Get(int Id)
+        public IDataResult<CarImage> GetByCarId(int Id)
         {
-            return new SuccessDataResult<CarImage>(_carImageDal.Get(c => c.Id == Id));
+            return new SuccessDataResult<CarImage>(_carImageDal.Get(c => c.CarId == Id));
         }
 
         public IDataResult<List<CarImage>> GetAll()

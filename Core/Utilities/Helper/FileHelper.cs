@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Core.Utilities.Results;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -19,35 +20,47 @@ namespace Core.Utilities.Helper
                 }
             }
             var result = NewPath(file);
-            File.Move(ImagePath, result);
-            return result;
+            File.Move(ImagePath, result.newPath);
+            return result.Path2.Replace("\\", "/");
         }
-        public static void Delete(string path)
+        public static IResult Delete(string path)
         {
-            File.Delete(path);
+            path = path.Replace("/", "\\");
+
+            try
+            {
+                File.Delete(path);
+            }
+            catch (Exception exception)
+            {
+                return new ErrorResult(exception.Message);
+            }
+
+            return new SuccessResult();
         }
         public static string Update(string ImagePath, IFormFile file)
         {
             var result = NewPath(file);
             if (ImagePath.Length > 0)
             {
-                using (var stream = new FileStream(result, FileMode.Create))
+                using (var stream = new FileStream(result.newPath, FileMode.Create))
                 {
                     file.CopyTo(stream);
                 }
             }
             File.Delete(ImagePath);
-            return result;
+            return result.Path2.Replace("\\", "/");
         }
-        public static string NewPath(IFormFile file)
+        public static (string newPath, string Path2) NewPath(IFormFile file)
         {
             FileInfo fileInfo = new FileInfo(file.FileName);
             string fileExtension = fileInfo.Extension;
-            var newPath = Guid.NewGuid().ToString() + "_" + DateTime.Now.Month + "_" + DateTime.Now.Day + "_" + DateTime.Now.Year + fileExtension;
-            string path = Environment.CurrentDirectory + @"\wwwroot\Images";
+
+            var path = Guid.NewGuid().ToString() + "_" + DateTime.Now.Month + "_" + DateTime.Now.Day + "_" + DateTime.Now.Year + fileExtension;
+            string newPath = Environment.CurrentDirectory + @"\wwwroot\Images";
             string result = $@"{path}\{newPath}";
 
-            return result;
+            return (result, $"{newPath}");
         }
     }
 }

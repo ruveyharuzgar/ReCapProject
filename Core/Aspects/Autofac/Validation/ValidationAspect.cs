@@ -9,8 +9,6 @@ using System.Text;
 
 namespace Core.Aspects.Autofac.Validation
 {
-    //Reflection ile gelen tipim doğrulama classım ise tipi bul instancesini oluştur,
-    //parametrelerini bul sonra da daha önce her methoda ayrı ayrı yazdığım ValidationTool ile doğrula,işlemleri yapılır.
     public class ValidationAspect : MethodInterception
     {
         private Type _validatorType;
