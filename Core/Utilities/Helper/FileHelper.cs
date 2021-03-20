@@ -56,11 +56,12 @@ namespace Core.Utilities.Helper
             FileInfo fileInfo = new FileInfo(file.FileName);
             string fileExtension = fileInfo.Extension;
 
-            var path = Guid.NewGuid().ToString() + "_" + DateTime.Now.Month + "_" + DateTime.Now.Day + "_" + DateTime.Now.Year + fileExtension;
+            var path = Guid.NewGuid().ToString()+ fileExtension;
             string newPath = Environment.CurrentDirectory + @"\wwwroot\Images";
-            string result = $@"{path}\{newPath}";
+            string result = $@"{newPath }\{path}";
+            string imageName = @"Images\" + path;
 
-            return (result, $"{newPath}");
+            return (result, imageName);
         }
     }
 }
