@@ -13,6 +13,7 @@ using Entities.Concrete;
 using Entities.DTOs;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Business.Concrete
@@ -90,6 +91,35 @@ namespace Business.Concrete
         public IDataResult<CarDetailDto> GetCarDetailsById(int id)
         {
             return new SuccessDataResult<CarDetailDto>(_carDal.GetCarDetailsById(c => c.Id== id));
+        }
+
+        public IDataResult<List<Car>> GetCarsByDailyPrice(decimal min, decimal max)
+        {
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c=>c.DailyPrice>= min && c.DailyPrice<=max));
+        }
+
+        [CacheAspect]
+        public IDataResult<List<CarDetailDto>> GetCarDetailsByBrandName(string name)
+        {
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(c => c.BrandName == name));
+        }
+
+        [CacheAspect]
+        public IDataResult<List<CarDetailDto>> GetCarDetailsByColorName(string name)
+        {
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(c => c.ColorName == name));
+        }
+
+        [CacheAspect]
+        public IDataResult<List<CarDetailDto>> GetCarDetailsByBrandNameAndColorName(string brandName, string colorName)
+        {
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(c =>
+                c.BrandName == brandName && c.ColorName == colorName));
+        }
+
+        public IDataResult<List<CarDetailDto>> GetAllCarDetailsByFilter(int brandId, int colorId)
+        {
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails().Where(c => c.BrandId == brandId && c.ColorId == colorId).ToList());
         }
     }
 }

@@ -51,6 +51,11 @@ namespace Business.Concrete
             return new SuccessDataResult<List<RentalDetailDto>>(_rentalDal.GetRentalDetails(), "Araba detayları listelendi");
         }
 
+      /* public IDataResult<RentalDetailDto> GetRentalDetailsById(int id)
+        {
+            return new SuccessDataResult<RentalDetailDto>(_rentalDal.G(c => c.Id == id));
+        }
+      */
         [TransactionScopeAspect]
         public IResult TransactionalOperation(Rental rental)
         {

@@ -56,13 +56,25 @@ namespace WebAPI.Controllers
         [HttpGet("getall")]
         public IActionResult GetAll()
         {
-            Thread.Sleep(5000);
+            Thread.Sleep(1000);
             var result = _customerService.GetAll();
             if (result.Succes)
             {
                 return Ok(result);
             }
             return BadRequest(result.Message);
+        }
+
+        [HttpGet("getcustomerdetails")]
+
+        public IActionResult GetCustomerDetails()
+        {
+            var result = _customerService.GetCustomerDetails();
+            if (result.Succes)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
         }
     }
 }

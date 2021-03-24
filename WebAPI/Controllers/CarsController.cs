@@ -90,6 +90,25 @@ namespace WebAPI.Controllers
             return BadRequest(result.Message);
         }
 
+
+        [HttpGet("getcardetailsbybrandname")]
+        public IActionResult GetCarDetailsByBrandName(string name)
+        {
+            var result = _carService.GetCarDetailsByBrandName(name);
+            if (result.Succes) return Ok(result);
+
+            return BadRequest(result);
+        }
+
+        [HttpGet("getcardetailsbycolorname")]
+        public IActionResult GetCarDetailsByColorName(string name)
+        {
+            var result = _carService.GetCarDetailsByColorName(name);
+            if (result.Succes) return Ok(result);
+
+            return BadRequest(result);
+        }
+
         [HttpGet("getcardetails")]
         public IActionResult GetCarDetails()
         {
@@ -105,6 +124,39 @@ namespace WebAPI.Controllers
         public IActionResult GetCarDetailsById(int carId)
         {
             var result = _carService.GetCarDetailsById(carId);
+            if (result.Succes)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpGet("getcarsbydailyprice")]
+        public IActionResult GetCarsByDailyPrice(decimal min, decimal max)
+        {
+            var result = _carService.GetCarsByDailyPrice(min, max);
+            if (result.Succes)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpGet("getallcardetailsbyfiltersid")]
+        public IActionResult GetAllCarDetailsByFilter(int brandId, int colorId)
+        {
+            var result = _carService.GetAllCarDetailsByFilter(brandId, colorId);
+            if (result.Succes)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpGet("getallcardetailsbyfiltername")]
+        public IActionResult GetCarDetailsByBrandNameAndColorName(string brandName, string colorName)
+        {
+            var result = _carService.GetCarDetailsByBrandNameAndColorName(brandName,colorName);
             if (result.Succes)
             {
                 return Ok(result);

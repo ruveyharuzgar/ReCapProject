@@ -13,7 +13,7 @@ namespace DataAccess.Concrete.EntityFramework
 {
     public class EfCarDal : EfEntitiyRepositoryBase<Car, ReCapDBContext>, ICarDal
     {
-        public List<CarDetailDto> GetCarDetails(Expression<Func<Car, bool>> filter = null)
+        public List<CarDetailDto> GetCarDetails(Expression<Func<CarDetailDto, bool>> filter = null)
         {
             using (ReCapDBContext context = new ReCapDBContext())
             {
@@ -23,6 +23,8 @@ namespace DataAccess.Concrete.EntityFramework
                              select new CarDetailDto
                              {
                                  Id = car.Id,
+                                 BrandId=brand.BrandId,
+                                 ColorId=color.ColorId,
                                    
                                  ModelName = car.ModelName,
                                  BrandName = brand.BrandName,
@@ -33,9 +35,10 @@ namespace DataAccess.Concrete.EntityFramework
 
                                  Description=car.Description,
                                  ImagePath = (from i in context.CarImages where i.CarId == car.Id select i.ImagePath).FirstOrDefault()
+                                 
                              };
 
-                return result.ToList();
+                return filter == null ? result.ToList() : result.Where(filter).ToList();
             }
         }
         public CarDetailDto GetCarDetailsById(Expression<Func<Car, bool>> filter)

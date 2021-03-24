@@ -16,14 +16,15 @@ namespace DataAccess.Concrete.EntityFramework
             using (ReCapDBContext context = new ReCapDBContext())
             {
                 var result = from rental in context.Rentals
-                             join car in context.Cars on rental.CarId equals car.Id
-                             join customer in context.Customers on rental.CustomerId equals customer.Id
-                             join user in context.Users on customer.UserId equals user.Id
-                             join brand in context.Brands on car.BrandId equals brand.BrandId
+                             join car in context.Cars
+                             on rental.CarId equals car.Id
+                             join user in context.Users
+                             on rental.CustomerId equals user.Id
                              select new RentalDetailDto
                              {
-                                 
-                                 BrandName=brand.BrandName,
+                                 Id=rental.Id,
+
+                                 ModelName=car.ModelName,
                                  CustomerFirstName=user.FirstName,
                                  CustomerLastName=user.LastName,
 

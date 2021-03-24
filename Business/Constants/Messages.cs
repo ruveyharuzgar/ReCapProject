@@ -65,5 +65,13 @@ namespace Business.Constants
         public static string CarImageAdded="Araba resmi yüklendi";
 
         public static string FalseEmailFormat="E-mail xxx@xxx.com formatında olmalıdır.";
+        internal static string CreditCardUpdated;
+        internal static string CreditCardAdded;
+        internal static string CreditCardListed;
+        internal static string CreditCardNotFound;
+        internal static string PaymentAdded;
+        internal static string PaymentDeleted;
+        internal static string PaymentUpdated;
+        internal static string CustomerDetailsListed;
     }
 }
