@@ -98,16 +98,14 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(c=>c.DailyPrice>= min && c.DailyPrice<=max));
         }
 
-        [CacheAspect]
-        public IDataResult<List<CarDetailDto>> GetCarDetailsByBrandName(string name)
+        public IDataResult<List<CarDetailDto>> GetCarDetailsByBrandName(string brandName)
         {
-            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(c => c.BrandName == name));
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(c => c.BrandName == brandName));
         }
 
-        [CacheAspect]
-        public IDataResult<List<CarDetailDto>> GetCarDetailsByColorName(string name)
+        public IDataResult<List<CarDetailDto>> GetCarDetailsByColorName(string colorName)
         {
-            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(c => c.ColorName == name));
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(c => c.ColorName == colorName));
         }
 
         [CacheAspect]
@@ -117,9 +115,9 @@ namespace Business.Concrete
                 c.BrandName == brandName && c.ColorName == colorName));
         }
 
-        public IDataResult<List<CarDetailDto>> GetAllCarDetailsByFilter(int brandId, int colorId)
+        public IDataResult<List<Car>> GetAllCarDetailsByFilter(int brandId, int colorId)
         {
-            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails().Where(c => c.BrandId == brandId && c.ColorId == colorId).ToList());
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll().Where(c => c.BrandId == brandId && c.ColorId == colorId).ToList());
         }
     }
 }
