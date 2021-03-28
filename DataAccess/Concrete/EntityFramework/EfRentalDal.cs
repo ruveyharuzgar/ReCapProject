@@ -22,7 +22,7 @@ namespace DataAccess.Concrete.EntityFramework
                              on rental.CustomerId equals user.Id
                              select new RentalDetailDto
                              {
-                                 Id=rental.Id,
+                                 Id=car.Id,
 
                                  ModelName=car.ModelName,
                                  CustomerFirstName=user.FirstName,
