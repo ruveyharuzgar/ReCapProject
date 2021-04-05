@@ -23,7 +23,7 @@ namespace Business.Concrete
             _colorDal = colorDal;
         }
 
-        [SecuredOperation("admin,product.admin")]
+        //[SecuredOperation("admin,product.admin")]
         [ValidationAspect(typeof(ColorValidator))]
         [CacheRemoveAspect("IColorService.Get")]
 
@@ -47,7 +47,7 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Color>>(_colorDal.GetAll(),Messages.ColorListed);
         }
 
-        [SecuredOperation("admin,product.admin")]
+        //[SecuredOperation("admin,product.admin")]
         [CacheRemoveAspect("IColorService.Get")]
         public IResult Update(Color color)
         {
