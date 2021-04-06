@@ -1,4 +1,5 @@
-﻿using Entities.Concrete;
+﻿using Business.Constants;
+using Entities.Concrete;
 using FluentValidation;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ namespace Business.ValidationRules.FluentValidation
         public RentalValidator()
         {
             RuleFor(r => r.RentDate).NotEmpty();
-            RuleFor(r => r.ReturnDate).NotEmpty().WithMessage("Araba Teslim Edilmemiş.");
+            RuleFor(r => r.ReturnDate).NotEmpty().WithMessage(Messages.RentalReturnDateInValid);
         }
     }
 }
